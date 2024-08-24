@@ -1,4 +1,5 @@
 import tensorflow as tf
+import keras
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Conv1D, BatchNormalization, ReLU, Dropout, Softmax, InputLayer, LSTM, TimeDistributed
 from tensorflow.keras import Model
@@ -157,7 +158,7 @@ class TMSE_loss(Loss):
     def call(self, y_true, y_pred, max_value=4, reduction="mean"):
 
         y_pred = tf.clip_by_value(y_pred, clip_value_min=1e-8, clip_value_max=1)
-        delta_tc_square = tf.keras.metrics.mean_squared_error(tf.math.log(y_pred[:,1:,:]),tf.stop_gradient(tf.math.log(y_pred[:,:-1,:])))
+        delta_tc_square = keras.metrics.mean_squared_error(tf.math.log(y_pred[:,1:,:]),tf.stop_gradient(tf.math.log(y_pred[:,:-1,:])))
         delta_tc_tilda = tf.clip_by_value(delta_tc_square, clip_value_min=0, clip_value_max=max_value**2)
         if reduction == "mean":
             return tf.math.reduce_mean(delta_tc_tilda)

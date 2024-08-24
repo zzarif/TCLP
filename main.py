@@ -97,9 +97,9 @@ def main():
                 al_name=AL, is_label_propagation=lp_method, no_plat_reg=NOPLATREG, temp=TEMP)
     result = tsal.doAL(num_query_ratio=num_query_ratio[NAME], eta=ETA)  #
     if NOPLATREG==1:
-        np.save(os.path.join(os.getcwd(), "metadata", f"{NAME}_{MODEL}_no{LP}_{AL}_{ETA}_{TAU}_{TEMP}_{SEED}.npy"), result)
+        np.save(os.path.join(os.getcwd(), "metadata", f"{NAME}_{MODEL}_no{LP}_{AL}_{ETA}_{TAU}_{TEMP}_{SEED}.npy"), np.array(result, dtype=object))
     else:
-        np.save(os.path.join(os.getcwd(), "metadata", f"{NAME}_{MODEL}_{LP}_{AL}_{ETA}_{TAU}_{TEMP}_{SEED}.npy"), result)
+        np.save(os.path.join(os.getcwd(), "metadata", f"{NAME}_{MODEL}_{LP}_{AL}_{ETA}_{TAU}_{TEMP}_{SEED}.npy"), np.array(result, dtype=object))
 
 
 if __name__ == "__main__":
